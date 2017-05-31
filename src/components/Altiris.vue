@@ -20,10 +20,10 @@
         <div class="col-sm-10 col-sm-offset-1">
           <div class="panel">
             <label class="radio-inline">
-              <input type="radio" name="k" id="pcname" value="pcname" @click="SetPlaceHolder" checked="" title="^abcd' starts with 'abcd', 'abcd$' ends with 'abcd'">
+              <input type="radio" name="k" id="pcname" value="pcname" @click="SetPlaceHolder" title="^abcd' starts with 'abcd', 'abcd$' ends with 'abcd'" :checked="pcOpt === 'pcname'">
               Computer Name</label>
             <label class="radio-inline">
-              <input type="radio" name="k" id="aduser" value="aduser" @click="SetPlaceHolder" title="Enter a windows logon name, '^abcd' starts with 'abcd', 'abcd$' ends with 'abcd'">
+              <input type="radio" name="k" id="aduser" value="aduser" @click="SetPlaceHolder" title="Enter a windows logon name, '^abcd' starts with 'abcd', 'abcd$' ends with 'abcd'" :checked="pcOpt === 'aduser'">
               Windows Logon Name
             </label>
           </div>
@@ -69,7 +69,9 @@
       </table>
 
       <paginate
+        ref="pager"
         :page-count="pagecount"
+        :initialPage="initPage"
         :page-range="3"
         :margin-pages="2"
         :forcePage="curPage"
@@ -102,11 +104,13 @@ export default {
     return {
         pcs: [],
         query: '',
+        pcOpt: 'pcname',
         sTitle: "Enter a computer name, '^abcd' starts with 'abcd', 'abcd$' ends with 'abcd'",
         searching: false,
         pagecount: 0,
         total: 0,
         curPage: undefined,
+        initPage: 0,
         title: 'Details',
         kword: '',
         qword: '',
@@ -262,7 +266,8 @@ export default {
             
       },
       SetPlaceHolder(e) {
-        this.sTitle = e.target.title;
+        this.sTitle = e.target.title
+        this.pcOpt = e.target.value
       },
       Filter() {
           var keyword = this.kword
@@ -274,11 +279,27 @@ export default {
           }
       }
     },
+    created() {
+      if (this.$store.state.pcs !== undefined) {
+        this.query = this.$store.pcq
+        this.pcOpt = this.$store.pcOpt
+        this.pcs = JSON.parse(JSON.stringify(this.$store.state.pcs))
+        this.pagecount = this.$store.pagecount
+        this.total = this.$store.total
+        this.initPage = this.$store.initPage
+      }
+    },
+    beforeDestroy() {
+      this.$store.pcq = this.query
+      this.$store.pcOpt = this.pcOpt
+      this.$store.state.pcs = JSON.parse(JSON.stringify(this.pcs))
+      this.$store.pagecount = this.pagecount
+      this.$store.total = this.total
+      this.$store.initPage = this.$refs.pager.selected
+    },
     mounted () {
       $('#qword').focus()
-    },
-    watch: {
-
+      this.sTitle = $('input[name=k]:checked').attr('title')
     },
     components: {
       paginate,

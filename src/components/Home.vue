@@ -20,14 +20,14 @@
         <div class="col-sm-10 col-sm-offset-1">
           <div class="panel">
             <label class="radio-inline">
-              <input type="radio" name="k" id="SiteID" value="site" @click="SetPlaceHolder" title="Please enter a SiteID, like chn049, CHN056" checked>
+              <input type="radio" name="k" id="SiteID" value="site" @click="SetPlaceHolder" title="Please enter a SiteID, like chn049, CHN056" :checked="siteOpt === 'site'">
               SiteID</label>
             <label class="radio-inline">
-              <input type="radio" name="k" id="SiteCity" value="city" @click="SetPlaceHolder" title="Please enter a city name, like nanjing, wilrijk">
+              <input type="radio" name="k" id="SiteCity" value="city" @click="SetPlaceHolder" title="Please enter a city name, like nanjing, wilrijk" :checked="siteOpt === 'city'">
               SiteCity
             </label>
               <label class="radio-inline">
-                <input type="radio" name="k" id="IP" value="ip" @click="SetPlaceHolder" title="Please enter an ip address">
+                <input type="radio" name="k" id="IP" value="ip" @click="SetPlaceHolder" title="Please enter an ip address" :checked="siteOpt === 'ip'">
                 IP</label>
           </div>
         </div>
@@ -82,6 +82,7 @@
       return {
         sites: [],
         query: '',
+        siteOpt: 'site',
         sTitle: 'Please enter a SiteID, like chn049, CHN056',
         searching: false,
         errMsg: {
@@ -121,11 +122,25 @@
         })
       },
       SetPlaceHolder(e) {
-        this.sTitle = e.target.title;
+        this.sTitle = e.target.title
+        this.siteOpt = e.target.value
       }
+    },
+    created() {
+      if (this.$store.state.sites !== undefined) {
+        this.query = this.$store.siteq
+        this.siteOpt = this.$store.siteOpt
+        this.sites = JSON.parse(JSON.stringify(this.$store.state.sites))
+      }
+    },
+    beforeDestroy() {
+      this.$store.siteq = this.query
+      this.$store.siteOpt = this.siteOpt
+      this.$store.state.sites = JSON.parse(JSON.stringify(this.sites))
     },
     mounted () {
       $('#qword').focus()
+      this.sTitle = $('input[name=k]:checked').attr('title')
     }
   }
 

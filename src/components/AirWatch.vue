@@ -80,7 +80,9 @@
       </table>
 
       <paginate
+        ref="pager"
         :page-count="pagecount"
+        :initialPage="initPage"
         :page-range="3"
         :margin-pages="2"
         :forcePage="curPage"
@@ -107,7 +109,7 @@
     name: 'AirWatch',
     data () {
       return {
-        searching: true,
+        searching: false,
         q: {
           eml: '',
           cn: '',
@@ -121,10 +123,9 @@
         pagecount: 0,
         total: 0,
         curPage: undefined,
+        initPage: 0,
         title: "User Details - ",
-        users: [
-          {Email: 'edmon.jiang@cn.atlascopco.com', Country: 'China', Company: 'CJA', Staff_Legal: 'CJA', Enrolled: 'True', EnrolledDevicesCount: 2}
-        ]
+        users: []
       }
     },
     methods: {
@@ -202,11 +203,37 @@
       },
       GetPageData (pageNum){
         this.q.p = pageNum
+        this.storePage = pageNum
         this.LoadData()
       }
     },
     created() {
-       this.LoadData()
+      if (this.$store.state.users === undefined) {
+        this.LoadData()
+      }else{
+        this.users = JSON.parse(JSON.stringify(this.$store.state.users))
+        this.pagecount = this.$store.pagecount
+        this.total = this.$store.total
+        this.initPage = this.$store.initPage
+        this.q.eml = this.$store.eml
+        this.q.cn = this.$store.cn
+        this.q.co = this.$store.co
+        this.q.fam = this.$store.fam
+        this.q.ebl = this.$store.ebl
+        this.q.no = this.$store.no
+      }
+    },
+    beforeDestroy() {
+      this.$store.state.users = JSON.parse(JSON.stringify(this.users))
+      this.$store.pagecount = this.pagecount
+      this.$store.total = this.total
+      this.$store.initPage = this.$refs.pager.selected
+      this.$store.eml = this.q.eml
+      this.$store.cn = this.q.cn
+      this.$store.co = this.q.co
+      this.$store.fam = this.q.fam
+      this.$store.ebl = this.q.ebl
+      this.$store.no = this.q.no
     },
     components: {
       paginate,

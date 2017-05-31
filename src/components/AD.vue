@@ -19,10 +19,10 @@
         <div class="col-sm-10 col-sm-offset-1">
           <div class="panel">
             <label class="radio-inline">
-              <input type="radio" name="k" id="upn" value="upn" @click="SetPlaceHolder" title="firstname.lastname or firstname.lastname@xx.atlascopco.com" checked>
+              <input type="radio" name="k" id="upn" value="upn" @click="SetPlaceHolder" title="firstname.lastname or firstname.lastname@xx.atlascopco.com" :checked="userOpt === 'upn'">
               Email Address</label>
             <label class="radio-inline">
-              <input type="radio" name="k" id="gad" value="gad" @click="SetPlaceHolder" title="Please enter a windows logon account">
+              <input type="radio" name="k" id="gad" value="gad" @click="SetPlaceHolder" title="Please enter a windows logon account" :checked="userOpt === 'gad'">
               Windows Logon Name
             </label>
           </div>
@@ -159,6 +159,7 @@
         },
         k: 'upn',
         query: '',
+        userOpt: 'upn',
         sTitle: 'firstname.lastname or firstname.lastname@xx.atlascopco.com',
         searching: false,
         fword: '',
@@ -210,11 +211,25 @@
         })
       },
       SetPlaceHolder(e) {
-        this.sTitle = e.target.title;
+        this.sTitle = e.target.title
+        this.userOpt = e.target.value
       }
+    },
+    created() {
+      if (this.$store.state.user !== undefined) {
+        this.query = this.$store.userq
+        this.userOpt = this.$store.userOpt
+        this.user = JSON.parse(JSON.stringify(this.$store.state.user))
+      }
+    },
+    beforeDestroy() {
+      this.$store.userq = this.query
+      this.$store.userOpt = this.userOpt
+      this.$store.state.user = JSON.parse(JSON.stringify(this.user))
     },
     mounted () {
       $('#qword').focus()
+      this.sTitle = $('input[name=k]:checked').attr('title')
     }
   }
 

@@ -84,11 +84,6 @@
       return {
         assetbody: [],
         driverlink: 'http://www.dell.com/support/home/us/en/19/product-support/servicetag/',
-        assets: {
-          WarrantyData: [],
-          ServiceData: [],
-          ConfigData: []
-        },
         query: '',
         query2: '',
         searching: false,
@@ -178,6 +173,16 @@
           this.searching = false
         })
       }
+    },
+    created() {
+      if (this.$store.state.assetbody !== undefined) {
+        this.query = this.$store.snq
+        this.assetbody = JSON.parse(JSON.stringify(this.$store.state.assetbody))
+      }
+    },
+    beforeDestroy() {
+      this.$store.snq = this.query
+      this.$store.state.assetbody = JSON.parse(JSON.stringify(this.assetbody))
     },
     mounted () {
       $('#qword').focus()

@@ -21,15 +21,15 @@
           <div class="col-sm-10 col-sm-offset-1">
             <div class="panel">
               <label class="radio-inline">
-                <input type="radio" name="k" id="AdMail" value="AdMail" @click="SetPlaceHolder" checked title="firstname.lastname or firstname.lastname@xx.atlascopco.com">Email</label>
+                <input type="radio" name="k" id="AdMail" value="AdMail" @click="SetPlaceHolder" checked title="firstname.lastname or firstname.lastname@xx.atlascopco.com" :checked="empOpt === 'AdMail'">Email</label>
               <label class="radio-inline">
-                <input type="radio" name="k" id="OperationalManagerAdMail" value="OperationalManagerAdMail" @click="SetPlaceHolder" title="Search team member's by manager's email address">Manager's email</label>
+                <input type="radio" name="k" id="OperationalManagerAdMail" value="OperationalManagerAdMail" @click="SetPlaceHolder" title="Search team member's by manager's email address" :checked="empOpt === 'OperationalManagerAdMail'">Manager's email</label>
               <label class="radio-inline">
-                  <input type="radio" name="k" id="LocalJobTitle" value="LocalJobTitle" @click="SetPlaceHolder" title="Search employees by local job title">Local Job Title</label>
+                  <input type="radio" name="k" id="LocalJobTitle" value="LocalJobTitle" @click="SetPlaceHolder" title="Search employees by local job title" :checked="empOpt === 'LocalJobTitle'">Local Job Title</label>
               <label class="radio-inline">
-                <input type="radio" name="k" id="CostCenter" value="CostCenter" @click="SetPlaceHolder" title="Search employees by Cost Center">Cost Center</label>
+                <input type="radio" name="k" id="CostCenter" value="CostCenter" @click="SetPlaceHolder" title="Search employees by Cost Center" :checked="empOpt === 'CostCenter'">Cost Center</label>
               <label class="radio-inline">
-                <input type="radio" name="k" id="Department" value="Department" @click="SetPlaceHolder" title="Search employees by department name">Department</label>
+                <input type="radio" name="k" id="Department" value="Department" @click="SetPlaceHolder" title="Search employees by department name" :checked="empOpt === 'Department'">Department</label>
             </div>
           </div>
         </div>
@@ -81,6 +81,7 @@
       return {
         emps: [],
         query: '',
+        empOpt: 'AdMail',
         sTitle: 'firstname.lastname or firstname.lastname@xx.atlascopco.com',
         searching: false,
         errMsg: {
@@ -120,11 +121,25 @@
         })
       },
       SetPlaceHolder(e) {
-        this.sTitle = e.target.title;
+        this.sTitle = e.target.title
+        this.empOpt = e.target.value
       }
+    },
+    created() {
+      if (this.$store.state.emps !== undefined) {
+        this.query = this.$store.empq
+        this.empOpt = this.$store.empOpt
+        this.emps = JSON.parse(JSON.stringify(this.$store.state.emps))
+      }
+    },
+    beforeDestroy() {
+      this.$store.empq = this.query
+      this.$store.empOpt = this.empOpt
+      this.$store.state.emps = JSON.parse(JSON.stringify(this.emps))
     },
     mounted () {
       $('#qword').focus()
+      this.sTitle = $('input[name=k]:checked').attr('title')
     }
   }
 

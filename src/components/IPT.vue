@@ -68,6 +68,16 @@ export default {
         })
       }
     },
+    created() {
+      if (this.$store.state.iptdata !== undefined) {
+        this.query = this.$store.iptq
+        this.iptdata = JSON.parse(JSON.stringify(this.$store.state.iptdata))
+      }
+    },
+    beforeDestroy() {
+      this.$store.iptq = this.query
+      this.$store.state.iptdata = JSON.parse(JSON.stringify(this.iptdata))
+    },
     mounted () {
       $('#qword').focus()
     }
