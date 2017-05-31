@@ -128,7 +128,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .triangle{
     display: inline-block;
     width: 0;

@@ -21,7 +21,8 @@
     </div>
 
     <transition name="fade">
-      <div style="overflow: auto;" v-html="iptdata" v-show="iptdata"></div>
+      <div style="overflow: auto;" v-html="iptdata" v-if="t" kew="1"></div>
+      <div style="overflow: auto;" v-html="iptdata" v-else key="0"></div>
     </transition>
   </div>
 
@@ -35,6 +36,7 @@ export default {
         iptdata: '',
         query: '',
         searching: false,
+        t: true,
         errMsg: {
           class: '',
           text: ''
@@ -55,6 +57,7 @@ export default {
         $.get('http://itcs.apac.group.atlascopco.com/api/ipt?' + q)
         .done((data) => {
             this.iptdata = data
+            this.t = !this.t
             var tr = data.match(/<tr.*?(?=>)(.|\n)*?<\/tr>/g);
             this.errMsg.class = 'text-success'
             this.errMsg.text = 'Found records: ' + (tr ? tr.length : 0)

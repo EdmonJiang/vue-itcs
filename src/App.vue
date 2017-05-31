@@ -60,7 +60,8 @@ body{
 }
 
 .wrapper{
-    padding: 60px 0;
+    padding-top: 60px;
+    padding-bottom: 60px;
     overflow: hidden;
     text-align: center;
 }
@@ -141,29 +142,23 @@ body{
 }
 
 /* 过渡动画效果 */
-/*.slide-fade-enter-active {
-  transition: all .3s ease;
+.up-enter-active {
+  transition: all .5s ease;
 }
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-active {
-  transform: translateX(10px);
+.up-enter, .up-leave-active {
+  transform: translateY(20px);
   opacity: 0;
-}*/
+}
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s
+.fade-enter-active {
+  transition: all .5s ease;
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
 }
 
-/*.move-fade-leave-active {
-  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}*/
 .move-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .5s ease;
 }
 .move-fade-enter, .move-fade-leave-active
 {

@@ -20,9 +20,9 @@
           </div>
           </form>
           <div class="panel">&nbsp;</div>
-          <transition name="slide-fade">
           <div id="site-body">
-          <div v-for="asset in assetbody">
+          <transition-group name="up">
+          <div v-for="asset in assetbody" :key="asset">
             <div class="info-box" id="assetheader" v-show="asset.AssetHeaderData">
               <table class="table table-bordered table-striped table-hover">
                 <thead>
@@ -69,8 +69,8 @@
               </table>
             </div>
           </div>
+          </transition-group>
           </div>
-          </transition>
       </div>
     </div>
   </div>
@@ -194,15 +194,6 @@
 
 </script>
 
-<style scoped>
-.result_left {
-    margin-left: 50px;
-    float: left;
-    width: 300px;
-}
-.result_right {
-    margin-left: 50px;
-    float: left;
-    width: 700px;
-}
+<style>
+
 </style>

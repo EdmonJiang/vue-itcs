@@ -47,7 +47,7 @@
         </thead>
         <tbody>
           <tr>
-            <td><input type="text" class="form-control" v-model="q.eml" @keyup.enter="Search" placeholder="'abc' for 'xxabcxx', '^abc' starts with 'abc'"></td>
+            <td><input id="eml" type="text" class="form-control" v-model="q.eml" @keyup.enter="Search" placeholder="'abc' for 'xxabcxx', '^abc' starts with 'abc'"></td>
             <td><input type="text" class="form-control" v-model="q.cn" @keyup.enter="Search"></td>
             <td><input type="text" class="form-control" v-model="q.co" @keyup.enter="Search"></td>
             <td><input type="text" class="form-control" v-model="q.fam" @keyup.enter="Search"></td>
@@ -234,6 +234,9 @@
       this.$store.fam = this.q.fam
       this.$store.ebl = this.q.ebl
       this.$store.no = this.q.no
+    },
+    mounted () {
+      $('#eml').focus()
     },
     components: {
       paginate,

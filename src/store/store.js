@@ -1,4 +1,6 @@
 import Vue from 'vue'
+var Promise = require('es6-promise').Promise;
+require('es6-promise').polyfill();
 import Vuex from 'vuex'
 
 Vue.use(Vuex)

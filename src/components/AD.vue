@@ -30,7 +30,7 @@
       </div>
 
     </form>
-    <transition name="slide-fade">
+    <transition name="move-fade">
     <div id="site-body" v-show="user.sAMAccountName">
         <ul class="nav nav-tabs" style="border-bottom: 0">
           <li class="active"><a class="optionsTab" href="#tab1" data-toggle="tab" aria-expanded="true">Account</a></li>
@@ -138,8 +138,7 @@
                 </tr>
                 <tr v-for="group in filterGroup">
                   <td v-text="group"></td>
-                </tr>
-                
+                </tr>              
               </tbody>
             </table>
           </div>
