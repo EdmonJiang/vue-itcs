@@ -241,7 +241,7 @@ export default {
                 var tbl_row = tbl_head.insertRow();
                 
                 fields.forEach(function(v){
-                    tbl_row.appendChild(document.createElement('th')).append(v);;
+                    tbl_row.appendChild(document.createElement('th')).appendChild(document.createTextNode(v));
                 })
 
                 tbl_head.appendChild(tbl_row);
@@ -250,7 +250,7 @@ export default {
                     var tbl_row = tbl_body.insertRow();
                     
                     fields.forEach(function(title){
-                        tbl_row.insertCell().append(v[title]);
+                        tbl_row.insertCell().appendChild(document.createTextNode(v[title]));
                     })
                 })
                 

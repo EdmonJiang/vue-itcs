@@ -1,7 +1,7 @@
 <template>
 
   <div class="wrapper container">
-    <h1>Global Site Infomation Query</h1><br><br>
+    <h1>Global Site Information Query</h1><br><br>
     <form class="form-horizontal" id="site-form" @submit.prevent="GetSiteInfo">
       <div class="row">
 
