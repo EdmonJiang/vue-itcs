@@ -10,8 +10,14 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  data: {
+    user: String
+  },
+  created () {
+    this.user = document.getElementsByTagName('title')[0].getAttribute('user')
+  },
   router,
   store,
-  template: '<App/>',
+  template: '<App :user="user" />',
   components: { App }
 })

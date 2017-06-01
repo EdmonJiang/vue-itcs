@@ -22,6 +22,9 @@
           <li class=""><router-link to='/airwatch'>AirWatch</router-link></li>
           <li class=""><router-link to='/warranty'>Warranty</router-link></li>
         </ul>
+        <ul id="currentUser" class="nav navbar-nav navbar-right">
+          <li><a>{{ user }}</a></li>
+        </ul>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
@@ -33,7 +36,10 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  props: {
+    user: String
+  }
 }
 </script>
 
@@ -214,6 +220,18 @@ body{
   } 50% { 
     transform: scale(1.0);
     -webkit-transform: scale(1.0);
+  }
+}
+
+@media (min-width: 992px) {
+  #currentUser {
+    display: block;
+  }
+}
+
+@media (max-width: 991px) {
+  #currentUser {
+    display: none;
   }
 }
 </style>
