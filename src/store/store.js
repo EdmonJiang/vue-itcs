@@ -31,6 +31,9 @@ const state = {
   pcpagecount: 0,
   pctotal: 0,
   pcinitPage: 0,
+  // PkgList
+  pkgs: undefined,
+  pkgq: '',
   // AirWatch
   users: undefined,
   pagecount: 0,

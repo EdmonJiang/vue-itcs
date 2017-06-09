@@ -8,6 +8,7 @@ import Altiris from '@/components/Altiris'
 import AirWatch from '@/components/AirWatch'
 import Devices from '@/components/Devices'
 import Warranty from '@/components/Warranty'
+import PkgList from '@/components/PkgList'
 
 Vue.use(Router)
 
@@ -53,6 +54,11 @@ export default new Router({
       path: '/warranty',
       name: 'warranty',
       component: Warranty
+    },
+    {
+      path: '/pkg',
+      name: 'pkg',
+      component: PkgList
     },
     { path: '*', redirect: '/site' }
   ]

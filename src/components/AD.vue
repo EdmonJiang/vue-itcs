@@ -2,6 +2,7 @@
   <div class="wrapper container">
     <h1>AD User Information Query</h1><br><br>
     <form class="form-horizontal" id="site-form" @submit.prevent="GetUser">
+      
       <div class="row">
 
         <div class="col-sm-6 col-sm-offset-3">
@@ -18,10 +19,10 @@
       <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
           <div class="panel">
-            <label class="radio-inline">
+            <label class="radio-inline" title="userPrincipalName">
               <input type="radio" name="k" id="upn" value="upn" @click="SetPlaceHolder" title="firstname.lastname or firstname.lastname@xx.atlascopco.com" :checked="userOpt === 'upn'">
               Email Address</label>
-            <label class="radio-inline">
+            <label class="radio-inline" title="sAMAccountName">
               <input type="radio" name="k" id="gad" value="gad" @click="SetPlaceHolder" title="Please enter a windows logon account" :checked="userOpt === 'gad'">
               Windows Logon Name
             </label>

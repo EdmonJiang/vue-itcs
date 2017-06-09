@@ -13,10 +13,8 @@
           <div class="col-sm-3">
             <h5 :class="errMsg.class">{{ errMsg.text }}</h5>
           </div>
-
         </div>
   
-
         <div class="row">
           <div class="col-sm-10 col-sm-offset-1">
             <div class="panel">

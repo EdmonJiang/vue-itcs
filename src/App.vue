@@ -5,7 +5,7 @@
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">Toggle NAV</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -14,13 +14,14 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul id="site-menu" class="nav navbar-nav">
-          <li class=""><router-link to='/site'>Site Info</router-link></li>
-          <li class=""><router-link to='/staff'>Staff Info</router-link></li>
-          <li class=""><router-link to='/ad'>AD User</router-link></li>
-          <li class=""><router-link to='/altiris'>Altiris PC</router-link></li>
-          <li class=""><router-link to='/ipt'>IPT Info</router-link></li>
-          <li class=""><router-link to='/airwatch'>AirWatch</router-link></li>
-          <li class=""><router-link to='/warranty'>Warranty</router-link></li>
+          <li><router-link to='/site'>Site Info</router-link></li>
+          <li><router-link to='/staff'>Staff Info</router-link></li>
+          <li><router-link to='/ad'>AD User</router-link></li>
+          <li><router-link to='/altiris'>Altiris PC</router-link></li>
+          <li><router-link to='/ipt'>IPT Info</router-link></li>
+          <li><router-link to='/airwatch'>AirWatch</router-link></li>
+          <li><router-link to='/warranty'>Warranty</router-link></li>
+          <li><router-link to='/pkg'>Package</router-link></li>
         </ul>
         <ul id="currentUser" class="nav navbar-nav navbar-right">
           <li><a>{{ user }}</a></li>
@@ -229,9 +230,10 @@ body{
   }
 }
 
-@media (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 991px) {
   #currentUser {
     display: none;
   }
+  #navbar {width: 820px;}
 }
 </style>

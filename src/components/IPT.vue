@@ -2,7 +2,7 @@
   <div class="wrapper container-fluid">
     <div class="container">
       <h1>IPT Information Query
-        <a class="h5" href="https://10.86.140.101/ucmuser/main" target="_blank" style="color:#337ab7;white-space: nowrap">Self-Care Portal</a>  
+        <a class="h5" href="https://10.86.140.101/ucmuser/main" target="_blank" style="color:#337ab7;white-space: nowrap">&#9743;Self-Care Portal</a>  
       </h1><br><br>
       <form class="form-horizontal" id="site-form" @submit.prevent="GetIPTInfo">
         <div class="row">
