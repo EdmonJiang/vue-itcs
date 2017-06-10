@@ -21,7 +21,7 @@
           <li><router-link to='/ipt'>IPT Info</router-link></li>
           <li><router-link to='/airwatch'>AirWatch</router-link></li>
           <li><router-link to='/warranty'>Warranty</router-link></li>
-          <li><router-link to='/pkg'>Package</router-link></li>
+          <li><router-link to='/package'>Package</router-link></li>
         </ul>
         <ul id="currentUser" class="nav navbar-nav navbar-right">
           <li><a>{{ user }}</a></li>

@@ -56,8 +56,8 @@ export default new Router({
       component: Warranty
     },
     {
-      path: '/pkg',
-      name: 'pkg',
+      path: '/package',
+      name: 'package',
       component: PkgList
     },
     { path: '*', redirect: '/site' }
