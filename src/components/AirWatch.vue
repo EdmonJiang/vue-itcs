@@ -70,7 +70,7 @@
             <td v-text="user.ebl"></td>
             <td>
               <router-link :to="'/devices?email=' + user.eml" v-if="!!user.no">
-                <span class="label label-success" v-text="user.no"></span>
+                <span class="label label-success tips tips-n" v-text="user.no" aria-label="Open device details"></span>
               </router-link>
               <span class="label label-default" v-else>0</span>
             </td>

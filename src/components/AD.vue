@@ -71,8 +71,8 @@
                   <td>
                     <span v-text="user.userPrincipalName"></span>
                     <span v-show="user.userPrincipalName">
-                      <a class="icon-jabber" :href="'im:' + user.userPrincipalName"></a>&nbsp;
-                      <a class="icon-mail_send" :href="'mailto:' + user.userPrincipalName"></a>
+                      <a class="tips tips-n icon-jabber" :href="'im:' + user.userPrincipalName" aria-label="Contact by jabber"></a>&nbsp;
+                      <a class="tips tips-n icon-mail_send" :href="'mailto:' + user.userPrincipalName" aria-label="Contact by email"></a>
                     </span></td>
                 </tr>
                 <tr>

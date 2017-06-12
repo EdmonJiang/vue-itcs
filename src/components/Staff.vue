@@ -55,7 +55,7 @@
           <tr v-for="emp in emps">
             <td>
               <span v-text="emp.AdMail"></span>
-              <a class="icon-jabber" v-show="emp.AdMail" :href="'im:' + emp.AdMail"></a></td>
+              <a class="tips tips-n icon-jabber" v-show="emp.AdMail" :href="'im:' + emp.AdMail" aria-label="Contact by jabber"></a></td>
             <td v-text="emp.LocationCity"></td>
             <td v-text="emp.Division"></td>
             <td v-text="emp.LocalJobTitle"></td>
