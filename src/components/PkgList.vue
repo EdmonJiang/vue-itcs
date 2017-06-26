@@ -38,7 +38,7 @@
           <tr>
             <th>UNC</th><td>
               <span :id="'unc' + i" v-text="pkg.UNC"></span>
-              <button class="tips tips-e" @blur="ResetTip($event)" :data-clipboard-target="'#unc' + i" aria-label="Copy to clipboard" type="button"><span class="icon-clippy"></span></button>
+              <button v-if="pkg.UNC" class="tips tips-e" @blur="ResetTip($event)" :data-clipboard-target="'#unc' + i" aria-label="Copy to clipboard" type="button"><span class="icon-clippy"></span></button>
               </td>
           </tr>
           <tr>
