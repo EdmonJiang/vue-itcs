@@ -6,7 +6,7 @@
       <div class="row">
 
         <div class="col-sm-6 col-sm-offset-3">
-          <input class="form-control" id="qword" type="text" name="v" v-model="query" :disabled="searching" :placeholder="sTitle" required>
+          <input class="form-control" id="qword" type="text" name="v" v-model.trim="query" :disabled="searching" :placeholder="sTitle" required>
           <span class="loader-circle input-spinner hidden" id="spinner"></span>
         </div>
 
@@ -25,6 +25,14 @@
             <label class="radio-inline" title="sAMAccountName">
               <input type="radio" name="k" id="aduser" value="aduser" @click="SetPlaceHolder" title="Enter a windows logon name, '^abcd' starts with 'abcd', 'abcd$' ends with 'abcd'" :checked="pcOpt === 'aduser'">
               Windows Logon Name
+            </label>
+            <label class="radio-inline" title="Serial Number">
+              <input type="radio" name="k" id="sn" value="sn" @click="SetPlaceHolder" title="Enter a serial number of a computer" :checked="pcOpt === 'sn'">
+              Serial Number
+            </label>
+            <label class="radio-inline" title="IP Address">
+              <input type="radio" name="k" id="ip" value="ip" @click="SetPlaceHolder" title="Enter an ip address" :checked="pcOpt === 'ip'">
+              IP Address
             </label>
           </div>
         </div>
@@ -47,7 +55,7 @@
             <th>IP Address</th>
             <th>Last Connected</th>
           </tr>
-          <tr v-for="pc in pcs">
+          <tr v-for="pc in pcs" :key="pc">
             <td>
               <a data-toggle="modal" data-target=".table-modal" data-backdrop="static" href="#" v-text="pc.pc" @click="GetSWDetails(pc.pc,pc.domain,pc.user)"></a>
             </td>
@@ -87,7 +95,7 @@
       <div  slot="tablebody">
         <p>
           <strong>Filter:&nbsp;</strong>
-          <input id="txtFilter" type="text" v-model="kword" @keyup="Filter"/>
+          <input id="txtFilter" type="text" v-model="kword" @keyup="Filter">
         </p>
         <table id="tblbody" class="table table-striped table-hover table-condensed"></table>
       </div>

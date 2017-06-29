@@ -52,7 +52,7 @@
             <th>Company FAM Code</th>
             <th>Company Name</th>
           </tr>
-          <tr v-for="emp in emps">
+          <tr v-for="emp in emps" :key="emp">
             <td>
               <span v-text="emp.AdMail"></span>
               <a class="tips tips-n icon-jabber" v-show="emp.AdMail" :href="'im:' + emp.AdMail" aria-label="Contact by jabber"></a></td>
