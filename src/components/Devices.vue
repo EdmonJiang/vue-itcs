@@ -2,8 +2,12 @@
     <div id="site-body" class="wrapper container">
         <h1>Device Details - {{ $route.query.email }} <router-link class="btn btn-primary" to="/airwatch">Back</router-link></h1>
         <h2 :class="errMsg.class">{{ errMsg.text }}</h2>
+        <div v-show="searching" style="position:relative;width:10vmin;margin:0 auto">
+            <div class="loader-circle"></div>
+            <div class="cover"></div>
+        </div>
         <div id="accordion" role="tablist" aria-multiselectable="true" class="panel-group">
-            <div class="panel panel-default" v-for="(device, index) in devices">
+            <div class="panel panel-default" v-for="(device, index) in devices" :key="index">
                 <div class="panel-heading" role="tab" :id="'heading' + index">
                     <h4 class="panel-title">
                         <a data-toggle='collapse' data-parent='#accordion' :href="'#device' + index" :aria-controls="'device' + index">
@@ -12,7 +16,7 @@
                         </a>
                     </h4>
                 </div>
-                <div :id="'device' + index" role='tabpanel' class="collapse panel-collapse" :aria-labelledby="'device' + index">
+                <div :id="'device' + index" role='tabpanel' class="collapse panel-collapse" :class="index === 0" :aria-labelledby="'device' + index">
                     <div class="panel-body">
                         <table class="table table-striped table-hover table-condensed">
                             <tbody>
@@ -115,6 +119,7 @@ export default {
     methods: {
     },
     created() {
+        this.searching = true
         var q = encodeURIComponent(this.$route.query.email)
         $.getJSON('http://itcs.apac.group.atlascopco.com/api/airwatch/devices?eml='+ q)
         .done((data) =>{
@@ -123,6 +128,9 @@ export default {
         .fail(() => {
             this.errMsg.class = 'text-danger'
             this.errMsg.text = 'Failed to get data.'
+        })
+        .always(() => {
+          this.searching = false
         })
     }
 }

@@ -60,7 +60,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="entitle in asset.AssetEntitlementData">
+                  <tr v-for="entitle in asset.AssetEntitlementData" :key="entitle">
                     <td v-text="entitle.ServiceLevelDescription"></td>
                     <td v-text="entitle.StartDate.replace('T',' ')"></td>
                     <td v-text="entitle.EndDate.replace('T',' ')"></td>
@@ -70,7 +70,7 @@
             </div>
           </div>
           </transition-group>
-          </div>
+        
       </div>
     </div>
   </div>
