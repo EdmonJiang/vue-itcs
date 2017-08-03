@@ -1,6 +1,6 @@
 <template>
     <div id="site-body" class="wrapper container">
-        <h1>Device Details - {{ $route.query.email }} <router-link class="btn btn-primary" to="/airwatch">Back</router-link></h1>
+        <h1>Device Details - {{ $route.query.email }} <router-link class="btn btn-primary" to="/airwatch">&#x21e6; Back</router-link></h1>
         <h2 :class="errMsg.class">{{ errMsg.text }}</h2>
         <div v-show="searching" style="position:relative;width:10vmin;margin:0 auto">
             <div class="loader-circle"></div>
@@ -16,7 +16,7 @@
                         </a>
                     </h4>
                 </div>
-                <div :id="'device' + index" role='tabpanel' class="collapse panel-collapse" :class="index === 0" :aria-labelledby="'device' + index">
+                <div :id="'device' + index" role='tabpanel' class="collapse panel-collapse" :class="{ in: index === 0}" :aria-labelledby="'device' + index">
                     <div class="panel-body">
                         <table class="table table-striped table-hover table-condensed">
                             <tbody>

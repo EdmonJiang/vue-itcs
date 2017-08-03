@@ -6,13 +6,7 @@
           class="clearfix form-horizontal" id="site-form" @submit.prevent="GetDellInfo">
           <div class="row">
             <div class="col-sm-6 col-sm-offset-3 search-box">
-              <div class="input-group"><input class="form-control" id="qword" type="text" name="sn" v-model.trim="query" :disabled="searching" placeholder="Single or Multiple DELL service tags, Tag1,Tag2... separated by ','" required>
-                <div class="input-group-btn"><button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
-                  <ul class="dropdown-menu dropdown-menu-right">
-                    <li><a href="javascript:void(0)" @click="GetExpressCode">Find Express Service Code</a></li>
-                    </ul>
-                </div>
-              </div>
+              <input class="form-control" id="qword" type="text" name="sn" v-model="query" :disabled="searching" @input="ConvertDellSN" placeholder="Single or Multiple DELL service tags, Tag1,Tag2... separated by ','" required>
             </div>
             <div class="col-sm-3">
               <h5 :class="errMsg.class">{{ errMsg.text }}</h5>
@@ -137,41 +131,56 @@
           this.searching = false
         })
       },
-      GetExpressCode() {
-        if (this.Validate() === false) {
-          return
-        }
-        
-        if(/^[0-9a-zA-Z]{7},/.test(this.query) === true){
-          this.errMsg.class = "text-danger";
-          this.errMsg.text = "Only one SN for query express tag.";
-          return
-        }else if(/^[0-9a-zA-Z]{7}$/.test(this.query) === false){
-          this.errMsg.class = "text-danger";
-          this.errMsg.text = "The service tag is invalid.";
-          return
-        }
+      ConvertDellSN(){
+        var strSN = this.query.replace(/[^A-Za-z0-9,]/g, "")
+        this.query = strSN
+        var ArrSN = strSN.split(",")
+        var ArrTag = ArrSN.map((item, index)=>{
+          return this.Tag_to_ESC(item)
+        })
+        this.errMsg.text = 'Express Tag: ' + ArrTag.join(',')
+      },
+      Tag_to_ESC(DellSN)
+      {
+        var i,WDashes,tmp,tmpn;
 
-        this.errMsg.text = 'Searching...'
-        this.searching = true
-        var q = $('#site-form').serialize()
-        $.getJSON('http://itcs.apac.group.atlascopco.com/api/warranty/express?' + q)
-        .done((data) => {
-          if(data.error){
-            this.errMsg.class = 'text-danger'
-            this.errMsg.text = 'Query error!'
-          }else{
-            this.errMsg.class = 'text-success'
-            this.errMsg.text = 'Express Tag: ' + data.ExpressServiceTag
-          }
-        })
-        .fail(() => {
-          this.errMsg.class = 'text-danger'
-          this.errMsg.text = 'Failed to connect server, please try later!'
-        })
-        .always(() => {
-          this.searching = false
-        })
+        tmp = "";
+        tmpn = 0;
+        tmpn = this.BN2N(DellSN,36);
+      
+        tmp = tmpn.toString();
+        WDashes = "";
+        for(i=0;i<tmp.length;i++) {
+            WDashes += tmp.charAt(i);
+            // if(i && ((i+1) < tmp.length) && !((i+1)%3) ) {
+            //     WDashes += "-";
+            // }
+        }
+        return(WDashes);
+      },
+      BN2N(InN, Base) {
+        var toKs, i, j, tmp, m, numb, vDec, dsz;
+        var digs = new Array();
+        toKs = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        tmp = InN.toUpperCase();
+        j = tmp.length - 1;
+        for (i = 0; i < tmp.length; i++) {
+            digs[i] = tmp.substr(i, 1);
+        }
+        digs.reverse();
+        numb = 0;
+        dsz = digs.length;
+        for (i = 0; i < dsz; i++) {
+            if (!i) {
+                m = 1;
+            } else {
+                m = Math.pow(Base, i);
+            }
+            vDec = toKs.indexOf(digs[i]);
+            numb += (m * vDec);
+        }
+        return ( numb) ;
       }
     },
     created() {
