@@ -4,6 +4,7 @@ import Vue from 'vue'
 import router from './router'
 import App from './App'
 import store from './store/store'
+// import $ from 'jquery'
 
 Vue.config.productionTip = false
 
@@ -14,7 +15,8 @@ new Vue({
     user: String
   },
   created () {
-    this.user = document.getElementsByTagName('title')[0].getAttribute('user')
+    // this.user = document.getElementsByTagName('title')[0].getAttribute('user')
+    this.user = window.returnCitySN['cname'] + ' ' + window.returnCitySN['cip']
   },
   router,
   store,

@@ -16,8 +16,8 @@
           <div class="panel">&nbsp;</div>
           <div id="site-body">
           <transition-group name="up">
-          <div v-for="asset in assetbody" :key="asset">
-            <div class="info-box" id="assetheader" v-show="asset.AssetHeaderData">
+          <div v-for="asset in assetbody" :key="asset.serviceTag">
+            <div class="info-box" id="assetheader" v-show="asset">
               <table class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -30,12 +30,12 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td v-text="asset.AssetHeaderData.ServiceTag"></td>
-                    <td v-text="asset.AssetHeaderData.ShipDate.replace('T',' ')"></td>
-                    <td v-text="asset.AssetHeaderData.CountryLookupCode"></td>
-                    <td v-text="asset.AssetHeaderData.MachineDescription"></td>
+                    <td v-text="asset.serviceTag"></td>
+                    <td v-text="new Date(asset.shipDate).toLocaleString()"></td>
+                    <td v-text="asset.countryCode"></td>
+                    <td v-text="asset.systemDescription"></td>
                     <td>
-                      <a :href="driverlink + asset.AssetHeaderData.ServiceTag + '/drivers/advanced'" target="_blank">
+                      <a :href="driverlink + asset.serviceTag + '/drivers/advanced'" target="_blank">
                         <span class="icon-download"></span>
                         Download
                       </a>
@@ -44,7 +44,7 @@
                 </tbody>
               </table>
             </div>
-            <div class="info-box" id="assetdata" v-show="asset.AssetEntitlementData">
+            <div class="info-box" id="assetdata" v-show="asset.entitlements">
               <table class="table table-bordered table-striped table-hover">
                 <thead>
                   <tr>
@@ -54,10 +54,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="entitle in asset.AssetEntitlementData" :key="entitle">
-                    <td v-text="entitle.ServiceLevelDescription"></td>
-                    <td v-text="entitle.StartDate.replace('T',' ')"></td>
-                    <td v-text="entitle.EndDate.replace('T',' ')"></td>
+                  <tr v-for="entitle in asset.entitlements" :key="entitle">
+                    <td v-text="entitle.serviceLevelDescription"></td>
+                    <td v-text="new Date(entitle.startDate).toLocaleString()"></td>
+                    <td v-text="new Date(entitle.endDate).toLocaleString()"></td>
                   </tr>
                 </tbody>
               </table>
@@ -71,13 +71,13 @@
 </template>
 
 <script>
-  import modal from './Modal'
   export default {
     name: 'warranty',
     data() {
       return {
         assetbody: [],
         driverlink: 'http://www.dell.com/support/home/us/en/19/product-support/servicetag/',
+        // api_url: 'http://localhost:5000',
         query: '',
         query2: '',
         searching: false,
@@ -112,13 +112,13 @@
         this.errMsg.text = 'Searching...'
         this.searching = true
         var q = $('#site-form').serialize()
-        $.getJSON('http://itcs.apac.group.atlascopco.com/api/warranty/dell?' + q)
+        $.getJSON('http://127.0.0.1:3000')
         .done((data) => {
           if(data.error){
             this.errMsg.class = 'text-danger'
             this.errMsg.text = 'Query error!'
           }else{
-            this.assetbody = [].concat(data.AssetWarrantyResponse)
+            this.assetbody = [].concat(data)
             this.errMsg.class = 'text-success'
             this.errMsg.text = 'Found records: ' + this.assetbody.length
           }
